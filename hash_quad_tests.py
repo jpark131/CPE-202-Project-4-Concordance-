@@ -103,5 +103,15 @@ class TestList(unittest.TestCase):
         keys.sort()
         self.assertEquals(keys, ["cat", "dog", "elephant", "mouse"])
 
+    def test_collisions(self):
+        ht = HashTable(7)
+        ht.hash_table[3] = ('lol',[5])
+        ht.num_items += 1
+        ht.hash_table[4] = ('lmao', [5])
+        ht.num_items += 1
+        ht.insert('cat',5)
+        self.assertEqual(ht.get_num_items(),3)
+        self.assertEqual(ht.get_index('cat'),0)
+
 if __name__ == '__main__':
    unittest.main()

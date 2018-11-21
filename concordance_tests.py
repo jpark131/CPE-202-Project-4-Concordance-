@@ -22,8 +22,16 @@ class TestList(unittest.TestCase):
        conc = Concordance()
        conc.load_stop_table("stop_words.txt")
        conc.load_concordance_table("declaration.txt")
-       conc.write_concordance("file1_con.txt")
+       conc.write_concordance("declaration_con.txt")
        self.assertTrue(filecmp.cmp("declaration_con.txt", "declaration_sol.txt"))
+
+   def test_DNE(self):
+       conc = Concordance()
+       with self.assertRaises(FileNotFoundError):
+           conc.load_stop_table("dne.txt")
+       with self.assertRaises(FileNotFoundError):
+           conc.load_concordance_table("dne.txt")
+
 
 if __name__ == '__main__':
    unittest.main()
