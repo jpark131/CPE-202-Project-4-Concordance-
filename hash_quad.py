@@ -6,26 +6,24 @@ class HashTable:
         self.num_items = 0                  # empty hash table
 
     def insert(self, key, value=0):
-        if (self.get_num_items() + 1)/self.table_size >= 0.5:
-            self.rehash_helper()
         idx = self.horner_hash(key)
         i = 0
         if self.hash_table[idx] is None:
             self.hash_table[idx + (i ** 2)] = (key, [value])
             self.num_items += 1
-            return
-        res = 0
-        while self.hash_table[idx + (i ** 2) - res][0] != key:
-            i += 1
-            if idx + (i ** 2) >= self.table_size:
-                res = self.table_size
-            if self.hash_table[idx + (i ** 2) - res] is None:
-                self.hash_table[idx + (i ** 2) - res] = (key, [value])
-                self.num_items += 1
-                return
-        if value not in self.hash_table[idx + (i ** 2) - res][1]:
-            self.hash_table[idx + (i ** 2) - res][1].append(value)
-
+        else:
+            res = 0
+            while self.hash_table[idx + (i ** 2) - res][0] != key:
+                i += 1
+                if idx + (i ** 2) >= self.table_size:
+                    res = self.table_size
+                if self.hash_table[idx + (i ** 2) - res] is None:
+                    self.hash_table[idx + (i ** 2) - res] = (key, [value])
+                    self.num_items += 1
+            if value not in self.hash_table[idx + (i ** 2) - res][1] and self.hash_table[idx + (i ** 2) - res][0] == key:
+                self.hash_table[idx + (i ** 2) - res][1].append(value)
+        if (self.get_num_items()) / self.table_size > 0.5:
+            self.rehash_helper()
 
     def horner_hash(self, key):
         i = 0
