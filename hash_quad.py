@@ -6,14 +6,6 @@ class HashTable:
         self.num_items = 0                  # empty hash table
 
     def insert(self, key, value=0):
-        """ Inserts an entry into the hash table (using Horner hash function to determine index, 
-        and quadratic probing to resolve collisions).
-        The key is a string (a word) to be entered, and value is the line number that the word appears on. 
-        If the key is not already in the table, then the key is inserted, and the value is used as the first 
-        line number in the list of line numbers. If the key is in the table, then the value is appended to that 
-        key’s list of line numbers. If value is not used for a particular hash table (e.g. the stop words hash table),
-        can use the default of 0 for value and just call the insert function with the key.
-        If load factor is greater than 0.5 after an insertion, hash table size should be increased (doubled + 1)."""
         if (self.get_num_items()+1)/self.table_size >= 0.5:
             self.rehash_helper()
         idx = self.horner_hash(key)
