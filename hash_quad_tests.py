@@ -113,5 +113,6 @@ class TestList(unittest.TestCase):
         self.assertEqual(ht.get_num_items(),3)
         self.assertEqual(ht.get_index('cat'),0)
 
+
 if __name__ == '__main__':
    unittest.main()

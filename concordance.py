@@ -32,7 +32,6 @@ class Concordance:
             inf = open(filename)
             lnumb = 1
             for line in inf:
-                added = []
                 newline = ''
                 for char in line:
                     if char == "'":
@@ -47,12 +46,9 @@ class Concordance:
                         newline += char
                 wordlist = newline.split()
                 for word in wordlist:
-                    if self.stop_table.in_table(word):
-                        pass
-                    else:
-                        if word not in added:
-                            self.concordance_table.insert(word, lnumb)
-                            added.append(word)
+                    if not self.stop_table.in_table(word):
+                        self.concordance_table.insert(word, lnumb)
+
                 lnumb += 1
         except FileNotFoundError:
             raise FileNotFoundError('File does not exist')
@@ -70,6 +66,8 @@ class Concordance:
                     linenums += ' ' + str(num)
                 concord_list.append(str(entry[0]) + ':' + linenums)
         concord_list.sort()
+        if len(concord_list) == 0:
+            return
         for entry in concord_list[:-1]:
             out.write(entry + '\n')
         out.write(concord_list[-1])

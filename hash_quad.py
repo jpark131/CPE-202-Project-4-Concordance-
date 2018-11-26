@@ -1,6 +1,6 @@
 class HashTable:
 
-    def __init__(self, table_size):         # can add additional attributes
+    def __init__(self, table_size=10):         # can add additional attributes
         self.table_size = table_size        # initial table size
         self.hash_table = [None]*table_size # hash table
         self.num_items = 0                  # empty hash table
@@ -23,7 +23,8 @@ class HashTable:
                 self.hash_table[idx + (i ** 2) - res] = (key, [value])
                 self.num_items += 1
                 return
-        self.hash_table[idx + (i ** 2) - res][1].append(value)
+        if value not in self.hash_table[idx + (i ** 2) - res][1]:
+            self.hash_table[idx + (i ** 2) - res][1].append(value)
 
 
     def horner_hash(self, key):

@@ -32,6 +32,13 @@ class TestList(unittest.TestCase):
        with self.assertRaises(FileNotFoundError):
            conc.load_concordance_table("dne.txt")
 
+   def test_empty_file(self):
+       conc = Concordance()
+       conc.load_stop_table("stop_words.txt")
+       conc.load_concordance_table("empty_file.txt")
+       conc.write_concordance("empty_con.txt")
+       self.assertTrue(filecmp.cmp("empty_con.txt", "empty_sol.txt"))
+
 
 if __name__ == '__main__':
    unittest.main()
