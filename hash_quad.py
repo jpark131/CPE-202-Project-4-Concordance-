@@ -6,7 +6,7 @@ class HashTable:
         self.num_items = 0                  # empty hash table
 
     def insert(self, key, value=0):
-        if (self.get_num_items()+1)/self.table_size >= 0.5:
+        if (self.get_num_items() + 1)/self.table_size >= 0.5:
             self.rehash_helper()
         idx = self.horner_hash(key)
         i = 0
