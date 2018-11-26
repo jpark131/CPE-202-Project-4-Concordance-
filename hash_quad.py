@@ -27,8 +27,6 @@ class HashTable:
 
 
     def horner_hash(self, key):
-        """ Compute and return an integer from 0 to the (size of the hash table) - 1
-        Compute the hash value by using Horner’s rule, as described in project specification."""
         i = 0
         hash = 0
         n = min(8,len(key))
@@ -38,15 +36,12 @@ class HashTable:
         return hash%self.table_size
 
     def in_table(self, key):
-        """ Returns True if key is in an entry of the hash table, False otherwise."""
         i = self.get_index(key)
         if i is None:
             return False
         return True
 
     def get_index(self, key):
-        """ Returns the index of the hash table entry containing the provided key. 
-        If there is not an entry with the provided key, returns None."""
         i = self.horner_hash(key)
         j = 0
         res = 0
@@ -59,7 +54,6 @@ class HashTable:
         return None
 
     def get_all_keys(self):
-        """ Returns a Python list of all keys in the hash table."""
         list = []
         for entry in self.hash_table:
             if entry is not None:
@@ -68,8 +62,6 @@ class HashTable:
         return list
 
     def get_value(self, key):
-        """ Returns the value (list of line numbers) associated with the key. 
-        If key is not in hash table, returns None."""
         i = self.get_index(key)
         if i is None:
             return None
@@ -77,15 +69,12 @@ class HashTable:
 
 
     def get_num_items(self):
-        """ Returns the number of entries (words) in the table."""
         return self.num_items
 
     def get_table_size(self):
-        """ Returns the size of the hash table."""
         return self.table_size
 
     def get_load_factor(self):
-        """ Returns the load factor of the hash table (entries / table_size)."""
         return self.get_num_items()/self.table_size
 
     def rehash_helper(self):
