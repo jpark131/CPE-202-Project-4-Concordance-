@@ -113,6 +113,18 @@ class TestList(unittest.TestCase):
         self.assertEqual(ht.get_num_items(),3)
         self.assertEqual(ht.get_index('cat'),0)
 
+    def test_wrap_around(self):
+        ht = HashTable(7)
+        ht.insert("cat", 5)
+        self.assertEqual(ht.get_index("cat"), 3)
+
+        ht.hash_table[6] = ('lol', [5])
+        ht.num_items += 1
+
+        ht.insert("dog", 8)
+        self.assertEqual(ht.get_num_items(), 3)
+        self.assertEqual(ht.get_index("dog"), 0)
+        self.assertAlmostEqual(ht.get_load_factor(), 3 / 7)
 
 if __name__ == '__main__':
    unittest.main()

@@ -39,6 +39,21 @@ class TestList(unittest.TestCase):
        conc.write_concordance("empty_con.txt")
        self.assertTrue(filecmp.cmp("empty_con.txt", "empty_sol.txt"))
 
+   def test_single_word(self):
+       conc = Concordance()
+       conc.load_stop_table("stop_words.txt")
+       conc.load_concordance_table("hello_file.txt")
+       conc.write_concordance("hello_con.txt")
+       self.assertTrue(filecmp.cmp("hello_con.txt", "hello_sol.txt"))
+
+   def test_diff_cases(self):
+       conc = Concordance()
+       conc.load_stop_table("stop_words.txt")
+       conc.load_concordance_table("up_file.txt")
+       conc.load_concordance_table("down_file.txt")
+       conc.write_concordance("up_con.txt")
+       conc.write_concordance("down_con.txt")
+       self.assertTrue(filecmp.cmp("up_con.txt", "down_con.txt"))
 
 if __name__ == '__main__':
    unittest.main()

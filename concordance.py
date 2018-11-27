@@ -48,7 +48,6 @@ class Concordance:
                 for word in wordlist:
                     if not self.stop_table.in_table(word):
                         self.concordance_table.insert(word, lnumb)
-
                 lnumb += 1
         except FileNotFoundError:
             raise FileNotFoundError('File does not exist')

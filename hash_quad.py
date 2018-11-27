@@ -20,6 +20,7 @@ class HashTable:
                 if self.hash_table[idx + (i ** 2) - res] is None:
                     self.hash_table[idx + (i ** 2) - res] = (key, [value])
                     self.num_items += 1
+                    break
             if value not in self.hash_table[idx + (i ** 2) - res][1] and self.hash_table[idx + (i ** 2) - res][0] == key:
                 self.hash_table[idx + (i ** 2) - res][1].append(value)
         if (self.get_num_items()) / self.table_size > 0.5:
