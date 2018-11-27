@@ -15,13 +15,15 @@ class HashTable:
             res = 0
             while self.hash_table[idx + (i ** 2) - res][0] != key:
                 i += 1
-                if idx + (i ** 2) >= self.table_size:
-                    res = self.table_size
+                trying = idx + (i ** 2) - res
+                if idx + (i ** 2) - res >= self.table_size:
+                    res += self.table_size
                 if self.hash_table[idx + (i ** 2) - res] is None:
                     self.hash_table[idx + (i ** 2) - res] = (key, [value])
                     self.num_items += 1
                     break
-            if value not in self.hash_table[idx + (i ** 2) - res][1] and self.hash_table[idx + (i ** 2) - res][0] == key:
+            if value not in self.hash_table[idx + (i ** 2) - res][1] and self.hash_table[idx + (i ** 2) - res][
+                0] == key:
                 self.hash_table[idx + (i ** 2) - res][1].append(value)
         if (self.get_num_items()) / self.table_size > 0.5:
             self.rehash_helper()
@@ -29,11 +31,11 @@ class HashTable:
     def horner_hash(self, key):
         i = 0
         hash = 0
-        n = min(8,len(key))
+        n = min(8, len(key))
         while i < n:
-            hash += ord(key[i]) * (31**(n-1-i))
+            hash += ord(key[i]) * (31 ** (n - 1 - i))
             i += 1
-        return hash%self.table_size
+        return hash % self.table_size
 
     def in_table(self, key):
         i = self.get_index(key)
@@ -47,10 +49,10 @@ class HashTable:
         res = 0
         while self.hash_table[i + (j ** 2) - res] is not None:
             if self.hash_table[i + (j ** 2) - res][0] == key:
-                return i + (j**2) - res
+                return i + (j ** 2) - res
             j += 1
-            if i + (j ** 2) >= self.table_size:
-                res = self.table_size
+            if i + (j ** 2) - res >= self.table_size:
+                res += self.table_size
         return None
 
     def get_all_keys(self):

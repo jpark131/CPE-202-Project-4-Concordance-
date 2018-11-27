@@ -126,5 +126,23 @@ class TestList(unittest.TestCase):
         self.assertEqual(ht.get_index("dog"), 0)
         self.assertAlmostEqual(ht.get_load_factor(), 3 / 7)
 
+    def test_wrap_around_twice(self):
+        ht = HashTable(15)
+
+        ht.hash_table[14] = ('lol', [5])
+        ht.num_items += 1
+
+        ht.hash_table[0] = ('lmao', [5])
+        ht.num_items += 1
+
+        ht.hash_table[3] = ('lmfao', [5])
+        ht.num_items += 1
+
+        ht.hash_table[8] = ('plz', [5])
+        ht.num_items += 1
+
+        ht.insert("dog", 8)
+        self.assertEqual(ht.get_index("dog"), 9)
+
 if __name__ == '__main__':
    unittest.main()
